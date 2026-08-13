@@ -31,11 +31,11 @@ jobs:
         run: npm run build
 
       # ── 5. Setup Java (required by Gradle / Android SDK) ──────────────────
-      - name: Setup Java 17
+      - name: Setup Java 21
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '21'
 
       # ── 6. Setup Android SDK ─────────────────────────────────────────────
       - name: Setup Android SDK

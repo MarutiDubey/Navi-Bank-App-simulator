@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { NaviLogo } from '../components/UI';
 
 const Splash = () => {
   const navigate = useNavigate();
@@ -18,9 +17,13 @@ const Splash = () => {
     <div style={{
       display: 'flex', alignItems: 'center', justifyContent: 'center',
       height: '100dvh', backgroundColor: '#FFFFFF',
-      flexDirection: 'column', gap: '16px'
+      flexDirection: 'column',
     }}>
-      <NaviLogo size="lg" />
+      <img
+        src="/navi-logo.png"
+        alt="Navi"
+        style={{ width: '160px', height: 'auto' }}
+      />
     </div>
   );
 };

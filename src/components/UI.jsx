@@ -2,29 +2,13 @@ import React from 'react';
 
 // Navi Logo Wordmark Component
 export const NaviLogo = ({ size = 'md' }) => {
-  const sizes = {
-    sm: { box: 24, text: 18, font: 14 },
-    md: { box: 34, text: 26, font: 20 },
-    lg: { box: 44, text: 34, font: 28 },
-  };
-  const s = sizes[size];
+  const heights = { sm: 22, md: 30, lg: 40 };
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-      <div style={{
-        width: s.box, height: s.box, backgroundColor: '#2E8B3C',
-        borderRadius: '6px', display: 'flex', alignItems: 'center',
-        justifyContent: 'center', color: 'white', fontWeight: '900',
-        fontSize: s.font, fontFamily: 'Georgia, serif', lineHeight: 1
-      }}>
-        n
-      </div>
-      <span style={{
-        fontSize: s.text, fontWeight: '700', color: 'var(--color-text-dark)',
-        letterSpacing: '-0.5px'
-      }}>
-        navi
-      </span>
-    </div>
+    <img
+      src="/navi-logo.png"
+      alt="Navi"
+      style={{ height: heights[size], width: 'auto', display: 'block' }}
+    />
   );
 };
 

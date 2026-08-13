@@ -1,22 +1,16 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
-import { useAuth } from '../context/AuthContext';
 import { transactions } from '../data/transactions';
 import { NaviLogo, TxIcon } from '../components/UI';
-import { Send, Camera, CreditCard, ArrowLeftRight, ChevronRight } from 'lucide-react';
+import { Send, Camera, CreditCard, ArrowLeftRight, ChevronRight, Pencil, Check, X } from 'lucide-react';
 
 /* ── Credit Score Gauge ── */
 const CreditScoreGauge = () => {
   const score = 850;
-  const min = 300, max = 850;
-  const fraction = (score - min) / (max - min);
-
-  // Arc math
   const cx = 110, cy = 110, r = 85;
   const startAngle = 200, endAngle = 340;
   const totalArc = endAngle - startAngle;
-  const filled = fraction * totalArc;
 
   const toRad = (deg) => (deg * Math.PI) / 180;
   const arcPath = (startDeg, endDeg, radius) => {
@@ -42,9 +36,7 @@ const CreditScoreGauge = () => {
     <div className="card fade-in" style={{ marginBottom: '20px', textAlign: 'center' }}>
       <p className="section-title" style={{ textAlign: 'left' }}>Your Credit Score</p>
       <svg viewBox="0 0 220 140" width="220" height="140" style={{ overflow: 'visible' }}>
-        {/* Background track */}
         <path d={arcPath(startAngle, endAngle, r)} fill="none" stroke="#EEF0FA" strokeWidth="20" strokeLinecap="round" />
-        {/* Colored segments */}
         {segments.reduce((acc, seg, i) => {
           const prevEnd = i === 0 ? startAngle : segments[i - 1].end;
           acc.push(
@@ -53,10 +45,8 @@ const CreditScoreGauge = () => {
           );
           return acc;
         }, [])}
-        {/* Min/Max labels */}
         <text x={cx - r - 10} y={cy + 20} textAnchor="middle" fontSize="11" fill="var(--color-text-gray)">300</text>
         <text x={cx + r + 10} y={cy + 20} textAnchor="middle" fontSize="11" fill="var(--color-text-gray)">850</text>
-        {/* Score */}
         <text x={cx} y={cy + 10} textAnchor="middle" fontSize="38" fontWeight="700" fill="var(--color-text-dark)">{score}</text>
       </svg>
       <div style={{
@@ -69,7 +59,11 @@ const CreditScoreGauge = () => {
 
 /* ── Quick Action Card ── */
 const QuickActionCard = ({ title, icon: Icon }) => (
-  <div className="card" style={{ display: 'flex', flexDirection: 'column', height: '96px', justifyContent: 'space-between', cursor: 'pointer', transition: 'transform 0.1s', borderRadius: '16px', padding: '16px' }}
+  <div className="card" style={{
+    display: 'flex', flexDirection: 'column', height: '96px',
+    justifyContent: 'space-between', cursor: 'pointer',
+    transition: 'transform 0.1s', borderRadius: '16px', padding: '16px'
+  }}
     onPointerDown={e => e.currentTarget.style.transform = 'scale(0.97)'}
     onPointerUp={e => e.currentTarget.style.transform = 'scale(1)'}
     onPointerLeave={e => e.currentTarget.style.transform = 'scale(1)'}>
@@ -78,34 +72,121 @@ const QuickActionCard = ({ title, icon: Icon }) => (
   </div>
 );
 
-/* ── Account Card ── */
-const AccountCard = ({ name, accountNumber, balance, currency }) => (
-  <div style={{
-    background: 'linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%)',
-    borderRadius: '20px', padding: '22px', color: 'white', marginBottom: '14px',
-    boxShadow: '0 6px 20px rgba(31, 40, 127, 0.25)'
-  }}>
-    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '28px' }}>
-      <span style={{ fontSize: '16px', fontWeight: '600', opacity: 0.95 }}>{name}</span>
-      <span style={{ fontSize: '14px', opacity: 0.7 }}>...{accountNumber}</span>
+/* ── Editable Account Card ── */
+const AccountCard = ({ account, currency, onBalanceChange }) => {
+  const [editing, setEditing] = useState(false);
+  const [tempBalance, setTempBalance] = useState('');
+
+  const startEdit = () => {
+    setTempBalance(account.balance.toFixed(2));
+    setEditing(true);
+  };
+
+  const confirmEdit = () => {
+    const parsed = parseFloat(tempBalance);
+    if (!isNaN(parsed) && parsed >= 0) {
+      onBalanceChange(account.id, parsed);
+    }
+    setEditing(false);
+  };
+
+  const cancelEdit = () => setEditing(false);
+
+  return (
+    <div style={{
+      background: 'linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%)',
+      borderRadius: '20px', padding: '22px', color: 'white', marginBottom: '14px',
+      boxShadow: '0 6px 20px rgba(31, 40, 127, 0.25)'
+    }}>
+      {/* Bank name & account number */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
+        <span style={{ fontSize: '17px', fontWeight: '700', opacity: 0.95 }}>{account.bankName}</span>
+        <span style={{ fontSize: '13px', opacity: 0.7, marginTop: '2px' }}>****{account.accountNumber}</span>
+      </div>
+      {/* Account type */}
+      <p style={{ fontSize: '13px', opacity: 0.7, marginBottom: '24px' }}>{account.name}</p>
+
+      {/* Balance row */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px' }}>
+        {editing ? (
+          <>
+            {/* Currency symbol */}
+            <span style={{ fontSize: '22px', fontWeight: '700', opacity: 0.9 }}>{currency}</span>
+            <input
+              autoFocus
+              type="number"
+              value={tempBalance}
+              onChange={e => setTempBalance(e.target.value)}
+              onKeyDown={e => { if (e.key === 'Enter') confirmEdit(); if (e.key === 'Escape') cancelEdit(); }}
+              style={{
+                background: 'rgba(255,255,255,0.2)', border: '1.5px solid rgba(255,255,255,0.5)',
+                borderRadius: '10px', padding: '6px 12px', color: 'white',
+                fontSize: '24px', fontWeight: '700', width: '160px', outline: 'none',
+                fontFamily: 'Poppins, sans-serif'
+              }}
+            />
+            {/* Confirm */}
+            <div onClick={confirmEdit} style={{
+              width: '32px', height: '32px', borderRadius: '50%',
+              backgroundColor: 'rgba(255,255,255,0.25)', display: 'flex',
+              alignItems: 'center', justifyContent: 'center', cursor: 'pointer'
+            }}>
+              <Check size={16} color="white" />
+            </div>
+            {/* Cancel */}
+            <div onClick={cancelEdit} style={{
+              width: '32px', height: '32px', borderRadius: '50%',
+              backgroundColor: 'rgba(255,255,255,0.15)', display: 'flex',
+              alignItems: 'center', justifyContent: 'center', cursor: 'pointer'
+            }}>
+              <X size={16} color="white" />
+            </div>
+          </>
+        ) : (
+          <>
+            <span style={{ fontSize: '30px', fontWeight: '700' }}>
+              {currency}{account.balance.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+            </span>
+            {/* Edit pencil */}
+            <div onClick={startEdit} style={{
+              width: '30px', height: '30px', borderRadius: '50%',
+              backgroundColor: 'rgba(255,255,255,0.2)', display: 'flex',
+              alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
+              transition: 'background 0.15s'
+            }}>
+              <Pencil size={14} color="white" />
+            </div>
+          </>
+        )}
+      </div>
+      <div style={{ fontSize: '13px', opacity: 0.75 }}>Available Balance</div>
     </div>
-    <div style={{ fontSize: '30px', fontWeight: '700', marginBottom: '4px' }}>
-      {currency}{balance.toFixed(2)}
-    </div>
-    <div style={{ fontSize: '13px', opacity: 0.75 }}>Available Balance</div>
-  </div>
-);
+  );
+};
 
 /* ── Home Screen ── */
 const Home = () => {
   const navigate = useNavigate();
-  const { currency, accountBalances } = useApp();
+  const { currency, accountBalances, setAccountBalances } = useApp();
+
+  // Local accounts state so balance can be edited
+  const [localAccounts, setLocalAccounts] = useState([
+    { id: 1, bankName: 'SBI Bank', name: 'Savings Account', accountNumber: '4354', balance: accountBalances.checking },
+    { id: 2, bankName: 'SBI Bank', name: 'Basic Checking', accountNumber: '1234', balance: accountBalances.savings },
+  ]);
+
+  const handleBalanceChange = (id, newBalance) => {
+    setLocalAccounts(prev => prev.map(a => a.id === id ? { ...a, balance: newBalance } : a));
+    // Sync to global context too
+    if (id === 1) setAccountBalances(b => ({ ...b, checking: newBalance }));
+    else setAccountBalances(b => ({ ...b, savings: newBalance }));
+  };
 
   const currentDate = new Date().toLocaleDateString('en-US', {
     month: 'long', day: 'numeric', year: 'numeric'
   });
 
-  const getHour = () => {
+  const getGreeting = () => {
     const h = new Date().getHours();
     if (h < 12) return 'Morning';
     if (h < 17) return 'Afternoon';
@@ -118,7 +199,7 @@ const Home = () => {
     <div className="fade-in" style={{ overflowY: 'auto', paddingBottom: '16px' }}>
       {/* Header */}
       <div style={{
-        padding: '20px 20px 14px', display: 'flex',
+        padding: '16px 20px 12px', display: 'flex',
         justifyContent: 'center', alignItems: 'center', position: 'sticky',
         top: 0, background: 'white', zIndex: 10,
         borderBottom: '1px solid var(--color-border)'
@@ -130,7 +211,7 @@ const Home = () => {
       <div style={{ padding: '20px' }}>
         {/* Greeting */}
         <h1 style={{ fontSize: '26px', fontWeight: '700', color: 'var(--color-primary)', marginBottom: '4px' }}>
-          Good {getHour()}, Manthan
+          Good {getGreeting()}, Manthan
         </h1>
         <p style={{ fontSize: '14px', color: 'var(--color-text-gray)', marginBottom: '28px' }}>{currentDate}</p>
 
@@ -145,8 +226,17 @@ const Home = () => {
 
         {/* Accounts */}
         <p className="section-title">Your Accounts</p>
-        <AccountCard name="Basic Checking" accountNumber="1234" balance={accountBalances.checking} currency={currency} />
-        <AccountCard name="Savings Account" accountNumber="5678" balance={accountBalances.savings} currency={currency} />
+        <p style={{ fontSize: '12px', color: 'var(--color-text-gray)', marginBottom: '12px', marginTop: '-8px' }}>
+          ✎ Tap the pencil icon to edit balance
+        </p>
+        {localAccounts.map(acc => (
+          <AccountCard
+            key={acc.id}
+            account={acc}
+            currency={currency}
+            onBalanceChange={handleBalanceChange}
+          />
+        ))}
 
         {/* Featured Services */}
         <p className="section-title" style={{ marginTop: '10px' }}>Featured Services</p>

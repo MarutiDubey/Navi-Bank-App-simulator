@@ -42,13 +42,8 @@ const Login = () => {
         display: 'flex', flexDirection: 'column', minHeight: '100%',
         padding: '48px 24px', backgroundColor: 'var(--color-background)', alignItems: 'center'
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '40px' }}>
-          <div style={{
-            width: '32px', height: '32px', backgroundColor: '#2E8B3C',
-            borderRadius: '6px', display: 'flex', alignItems: 'center',
-            justifyContent: 'center', color: 'white', fontWeight: 'bold', fontSize: '20px', fontFamily: 'serif'
-          }}>n</div>
-          <span style={{ fontSize: '24px', fontWeight: '700', color: 'var(--color-text-dark)' }}>navi</span>
+        <div style={{ marginBottom: '40px' }}>
+          <img src="/navi-logo.png" alt="Navi" style={{ height: '32px', width: 'auto' }} />
         </div>
 
         <h1 style={{ fontSize: '28px', fontWeight: '700', color: 'var(--color-primary)', marginBottom: '8px', textAlign: 'center' }}>
@@ -131,13 +126,8 @@ const Login = () => {
       display: 'flex', flexDirection: 'column', minHeight: '100%',
       padding: '48px 24px', backgroundColor: 'var(--color-background)', alignItems: 'center'
     }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '56px' }}>
-        <div style={{
-          width: '36px', height: '36px', backgroundColor: '#2E8B3C',
-          borderRadius: '8px', display: 'flex', alignItems: 'center',
-          justifyContent: 'center', color: 'white', fontWeight: '900', fontSize: '22px', fontFamily: 'serif'
-        }}>n</div>
-        <span style={{ fontSize: '26px', fontWeight: '700', color: 'var(--color-text-dark)' }}>navi</span>
+      <div style={{ marginBottom: '56px' }}>
+        <img src="/navi-logo.png" alt="Navi" style={{ height: '36px', width: 'auto' }} />
       </div>
 
       <h1 style={{ fontSize: '32px', fontWeight: '700', color: 'var(--color-primary)', marginBottom: '32px' }}>

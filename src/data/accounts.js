@@ -1,16 +1,18 @@
 export const accounts = [
   {
     id: 1,
-    name: "Basic Checking",
-    accountNumber: "1234",
+    bankName: "SBI Bank",
+    name: "Savings Account",
+    accountNumber: "4354",
     balance: 100.00,
-    type: "Checking"
+    type: "Savings"
   },
   {
     id: 2,
-    name: "Savings Account",
-    accountNumber: "5678",
+    bankName: "SBI Bank",
+    name: "Basic Checking",
+    accountNumber: "1234",
     balance: 1000.00,
-    type: "Savings"
+    type: "Checking"
   }
 ];

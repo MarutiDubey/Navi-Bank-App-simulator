@@ -1,0 +1,19 @@
+{
+  "appId": "com.navisimulatordemo.app",
+  "appName": "Navi Bank Simulator",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https"
+  },
+  "android": {
+    "buildOptions": {
+      "keystorePath": null,
+      "keystoreAlias": null
+    }
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  }
+}

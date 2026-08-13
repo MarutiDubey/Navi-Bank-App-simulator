@@ -1,0 +1,178 @@
+/* ============================================
+   NAVI BANK SIMULATOR — Global Design System
+   ============================================ */
+
+:root {
+  --color-primary: #1F287F;
+  --color-primary-light: #202A87;
+  --color-green: #2E8B3C;
+  --color-orange: #F28705;
+  --color-red: #D94343;
+  --color-text-dark: #14256F;
+  --color-text-gray: #53636B;
+  --color-background: #FFFFFF;
+  --color-card-light: #F7F7FB;
+  --color-border: #D8D9E5;
+  --color-label-gray: #8892A0;
+  --font-family: 'Poppins', sans-serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background-color: #F0F2F5;
+}
+
+body {
+  font-family: var(--font-family);
+  color: var(--color-text-dark);
+  overscroll-behavior-y: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+input, button, textarea {
+  font-family: var(--font-family);
+}
+
+button {
+  cursor: pointer;
+}
+
+/* ---- Scrollbar Hiding ---- */
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ---- Screen Wrapper ---- */
+.screen {
+  padding: 24px 20px;
+  padding-bottom: 16px;
+  min-height: 100%;
+}
+
+/* ---- Screen Header ---- */
+.screen-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 20px 12px;
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 10;
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* ---- Card ---- */
+.card {
+  background: #FFFFFF;
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+
+/* ---- Section Title ---- */
+.section-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-text-dark);
+  margin-bottom: 14px;
+}
+
+/* ---- Settings Row ---- */
+.settings-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--color-border);
+  cursor: pointer;
+}
+.settings-row:last-child { border-bottom: none; }
+.settings-row:active { opacity: 0.7; }
+
+/* ---- Filter Pills ---- */
+.filter-pill {
+  padding: 8px 18px;
+  border-radius: 20px;
+  border: 1.5px solid var(--color-border);
+  background: white;
+  color: var(--color-text-gray);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s;
+}
+.filter-pill.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
+}
+
+/* ---- Toggle Switch ---- */
+.toggle {
+  width: 48px;
+  height: 26px;
+  border-radius: 13px;
+  background: var(--color-border);
+  position: relative;
+  cursor: pointer;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+.toggle.on { background: var(--color-green); }
+.toggle::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: white;
+  top: 3px;
+  left: 3px;
+  transition: left 0.2s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+.toggle.on::after { left: 25px; }
+
+/* ---- Segment Tab ---- */
+.segment-tab {
+  flex: 1;
+  padding: 10px 8px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.15s;
+  color: var(--color-text-gray);
+}
+.segment-tab.active {
+  background: var(--color-primary);
+  color: white;
+}
+
+/* ---- Animations ---- */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-in { animation: fadeIn 0.3s ease; }
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}

@@ -1,0 +1,1600 @@
+1. App ka overall concept
+
+App ka structure:
+
+Banking Simulator
+│
+├── Splash Screen
+│
+├── Login
+│   ├── 4-digit PIN
+│   └── Reset PIN
+│
+└── Main App
+    │
+    ├── Home
+    │   ├── Quick Actions
+    │   ├── Accounts
+    │   ├── Featured Services
+    │   └── Credit Score
+    │
+    ├── History
+    │   ├── All
+    │   ├── Deposits
+    │   ├── Withdrawals
+    │   └── Transactions
+    │
+    ├── Statements
+    │   ├── Receipts
+    │   ├── Documents
+    │   ├── My Files
+    │   ├── Quick Receipt
+    │   └── Document Categories
+    │
+    ├── Settings
+    │   ├── Share
+    │   ├── Rate App
+    │   ├── Feedback
+    │   ├── Theme
+    │   ├── Home Screen Style
+    │   ├── Language
+    │   ├── Currency
+    │   ├── Scenario Presets
+    │   ├── Biometrics
+    │   ├── Change PIN
+    │   ├── Delete Account
+    │   ├── Help & Support
+    │   ├── FAQ
+    │   ├── Terms of Service
+    │   └── Privacy Policy
+    │
+    └── Profile
+        ├── Personal Information
+        └── Contact Information
+2. Design language
+
+Images me ek very consistent visual system hai.
+
+Primary color
+
+Dark navy/blue:
+
+#1F287F
+
+Screenshot ke primary UI elements isi family ke hain.
+
+Secondary colors
+Green       → #2E8B3C approximately
+Orange      → #F28705 approximately
+Red         → #D94343 approximately
+Dark text   → #14256F / #17256F
+Gray text   → #53636B
+Background  → #FFFFFF
+Light card  → #F7F7FB
+Border      → #D8D9E5
+
+Exact screenshot matching ke liye baad me colors ko pixel-sample karke final constants bana sakte hain.
+
+3. Typography
+
+UI me typography bold, rounded-looking sans-serif hai.
+
+Flutter me initially:
+
+Font: Google Poppins
+
+use kar sakte ho.
+
+Important hierarchy:
+
+Screen Title
+      ↓
+32–38 px equivalent
+Bold
+
+
+Section Title
+      ↓
+24–28 px
+Bold
+
+
+Card Title
+      ↓
+22–30 px
+Bold
+
+
+Normal Text
+      ↓
+16–18 px
+
+
+Secondary Text
+      ↓
+14–17 px
+
+Example:
+
+Good Morning, Manthan
+
+large bold navy.
+
+Then:
+
+August 14, 2026
+
+gray, smaller.
+
+4. Bottom Navigation — extremely important
+
+Almost har main screen ke bottom me same navigation bar hai.
+
+5 tabs:
+
+┌────────┬──────────┬────────────┬──────────┬─────────┐
+│  Home  │ History  │ Statements │ Settings │ Profile │
+│   🏠   │    ↶     │     📄     │    ⚙     │   👤    │
+└────────┴──────────┴────────────┴──────────┴─────────┘
+Selected item
+
+Navy:
+
+#1F287F
+Unselected
+
+Gray:
+
+#53636B
+
+Bottom navigation:
+
+white background
+subtle top shadow
+approximately 80–90 px height
+icons
+label below icon
+selected icon + text navy
+
+Flutter implementation:
+
+NavigationBar
+
+but custom styling better rahega because screenshot-specific design chahiye.
+
+5. Splash Screen
+
+Last image me basically logo screen hai.
+
+White background.
+
+Center me:
+
+[green Navi-style logo]  navi
+
+Logo approximately center aligned.
+
+No buttons.
+
+Duration:
+
+1.5–2 seconds
+
+Then:
+
+Splash
+   ↓
+Login
+
+First launch:
+
+Splash → Login
+
+After simulated login:
+
+Home
+
+Since backend nahi hai, login ko local simulation rakhenge.
+
+6. Login Screen
+
+Screenshot me:
+
+              [Logo]
+
+
+          Enter PIN
+┌──────────────────────────────┐
+│ 🔒                    👁     │
+└──────────────────────────────┘
+
+
+                 0/4
+
+
+┌──────────────────────────────┐
+│            Login             │
+└──────────────────────────────┘
+
+
+             Reset PIN
+PIN field
+
+4-digit maximum:
+
+0/4
+
+PIN hidden by default.
+
+Right side:
+
+eye-off icon
+
+Tap karne par:
+
+eye icon
+
+aur PIN visible.
+
+Login button
+
+Full width-ish.
+
+Navy:
+
+#202A87
+
+Rounded corners:
+
+~28 px
+
+Text:
+
+Login
+
+white + bold.
+
+Reset PIN
+
+Underlined navy text.
+
+Tap:
+
+Reset PIN screen/dialog
+
+Since UI-only app hai, simply:
+
+Enter new PIN
+Confirm PIN
+PIN updated
+
+simulate kar sakte hain.
+
+7. Home Screen — Main Screen
+
+Screenshot:
+
+             [navi logo]
+
+
+Good Morning, Manthan
+
+
+August 14, 2026
+
+
+Quick Actions
+
+
+┌──────────────────┬──────────────────┐
+│  💳              │  📷              │
+│                  │                  │
+│ Send Money       │ Mobile Deposit   │
+└──────────────────┴──────────────────┘
+
+
+┌──────────────────┬──────────────────┐
+│  💳              │  ↔               │
+│                  │                  │
+│ Pay Bills        │ Transfer         │
+└──────────────────┴──────────────────┘
+
+
+Your Accounts
+8. Quick Actions
+
+4 cards.
+
+Card 1
+Send Money
+
+Icon:
+
+money/card
+Card 2
+Mobile Deposit
+
+Camera icon.
+
+Card 3
+Pay Bills
+
+Wallet/payment icon.
+
+Card 4
+Transfer
+
+Left-right arrows.
+
+Cards:
+
+White
+Thin light border
+Rounded corners
+Subtle shadow
+
+Grid:
+
+2 × 2
+9. Accounts section
+
+Screenshot me:
+
+Basic Checking
+Basic Checking
+
+
+...1234
+
+
+₹100.00
+
+
+Available Balance
+
+Card large rounded.
+
+Then:
+
+Savings Account
+Savings Account
+
+
+...5678
+
+
+₹1,000.00
+
+
+Available Balance
+
+Home page vertically scrollable hai.
+
+Important:
+
+Account data dummy/local hoga.
+
+Example:
+
+Basic Checking
+accountNumber: "1234"
+balance: 100.00
+
+and:
+
+Savings Account
+accountNumber: "5678"
+balance: 1000.00
+10. Featured Services
+
+Screenshot me Accounts ke baad:
+
+Featured Services
+
+Horizontal scrolling chips.
+
+Examples:
+
+Personal Banking
+Trust & Security
+Premium ...
+
+Each chip:
+
+white
+navy border
+rounded pill
+star/icon
+
+Horizontal scroll.
+
+11. Credit Score
+
+Screenshot me large semicircular gauge:
+
+Your Credit Score
+
+
+       580     640
+         700
+      ───────────
+    /             \
+  300             850
+
+
+          850
+
+
+       EXCELLENT
+
+Score:
+
+850
+
+Label:
+
+EXCELLENT
+
+Gauge range:
+
+300 → 850
+
+Segments:
+
+300–580
+580–640
+640–700
+700–760
+760–850
+
+Different colors:
+
+Red
+Orange
+Yellow
+Blue
+Green
+
+This is one of the visually important components.
+
+Flutter me custom:
+
+CustomPainter
+
+use karna best rahega.
+
+12. History Screen
+
+Title:
+
+Transaction History
+
+Top right:
+
+🔍 Search
+⋮ More
+
+Filter pills:
+
+┌───────┐ ┌───────────┐ ┌─────────────┐
+│  All  │ │ Deposits  │ │ Withdrawals │
+└───────┘ └───────────┘ └─────────────┘
+
+Screenshot me fourth category partially visible hai, likely additional transaction type.
+
+13. Date grouping
+
+Transactions date-wise grouped hain.
+
+Example:
+
+⌄ August 13, 2026
+
+Then transactions.
+
+Starbucks
+Payment
+
+
+Starbucks
+STARBUCKS #3847
+
+
+Yesterday, 11:35 PM
+
+
+                         -₹5.47
+                         Completed
+Sweetgreen
+Payment
+
+
+Sweetgreen
+SWEETGREEN #1042
+
+
+Yesterday, 5:08 PM
+
+
+                         -₹13.85
+                         Completed
+
+Then:
+
+⌄ August 12, 2026
+Direct Deposit - Payroll
+Deposit
+
+
+Direct Deposit - Payroll
+GUSTO PAYROLL
+
+
+Wed, 7:53 PM
+
+
+                         +₹987.54
+                         Completed
+Kroger Groceries
+Payment
+
+
+Kroger Groceries
+KROGER #412
+
+
+Wed, 11:31 AM
+
+
+                         -₹63.18
+                         Completed
+14. Transaction data architecture
+
+Backend ki jagah:
+
+lib/data/transactions.dart
+
+Example conceptual data:
+
+{
+  type: payment,
+  merchant: Starbucks,
+  reference: STARBUCKS #3847,
+  amount: -5.47,
+  date: 2026-08-13,
+  time: 23:35,
+  status: Completed
+}
+
+Then UI automatically list generate karega.
+
+Isse future me:
+
+Add transaction
+Delete transaction
+Filter transaction
+Search transaction
+
+easy ho jayega.
+
+15. Statements Screen
+
+Header:
+
+Statements
+
+Top segmented tabs:
+
+┌──────────┬────────────┬──────────┐
+│ Receipts │ Documents  │ My Files │
+└──────────┴────────────┴──────────┘
+
+Selected:
+
+Receipts
+
+Navy filled background.
+
+16. Free-user notice
+
+Screenshot me green information box:
+
+✓ Free users can generate 1 receipt or
+  document every 6 hours
+
+Green border/background.
+
+This is a simulated restriction, actual server restriction nahi.
+
+Local state:
+
+lastGeneratedAt
+
+rakh sakte ho.
+
+17. Quick Receipt
+
+Large highlighted card:
+
+⚡
+
+
+Quick Receipt
+
+
+Enter an amount, get a receipt instantly
+                                      >
+
+Tap:
+
+Quick Receipt Screen
+
+Then:
+
+Amount
+Merchant
+Date
+Payment method
+Generate
+
+and UI-only PDF/image receipt simulation.
+
+18. Statement categories
+
+Grid 2 columns.
+
+Bank Statement
+🏦
+
+
+Bank Statement
+
+
+Banking documents
+Wire Transfer
+💸
+
+
+Wire Transfer
+
+
+Bank transfers
+ATM Receipt
+ATM
+
+
+ATM Receipt
+
+
+ATM transactions
+Thermal Receipt
+⛽
+
+
+Thermal Receipt
+
+
+Gas stations,
+convenience
+
+Further down screenshot me:
+
+🛒
+
+and
+
+✈️
+
+categories partially visible hain.
+
+We should implement complete scrollable grid.
+
+19. Profile Screen
+
+Header:
+
+Profile
+
+Top avatar:
+
+        U
+
+Circular/light lavender background.
+
+Then:
+
+Member Since 2024
+Personal Information
+
+Card heading:
+
+PERSONAL INFORMATION
+
+Fields:
+
+Name
+
+
+Display Name
+Manthan
+
+Screenshot me Name ka value blank dikh raha hai.
+
+Display Name:
+
+Manthan
+20. Contact Information
+
+Second card:
+
+CONTACT INFORMATION
+
+Fields:
+
+Email
+
+
+Phone
+
+
+Address
+
+Screenshot me values blank hain.
+
+UI-only app me initially:
+
+Email → blank
+Phone → blank
+Address → blank
+
+rakh sakte ho.
+
+21. Settings Screen — Upper Section
+
+Settings header:
+
+Settings
+
+Top 3 circular action buttons:
+
+        Share
+
+
+      ● Share
+
+
+      ● Rate App
+
+
+      ● Feedback
+
+Actually horizontal:
+
+[ Share ]   [ Rate App ]   [ Feedback ]
+Share
+
+Blue circular icon.
+
+Rate App
+
+Green circular icon + star.
+
+Feedback
+
+Orange circular icon.
+
+22. Appearance
+
+Section:
+
+APPEARANCE
+
+Rows:
+
+Theme
+🎨   Theme
+     Choose from our color
+     families                         >
+Home Screen Style
+▦   Home Screen Style
+    Classic                           >
+Language
+🌐   Language
+     English                          >
+Currency
+$   Currency
+     ₹ INR                            >
+Scenario Presets
+✦   Scenario Presets
+     Instantly populate the app
+     with a full setup                >
+23. Scenario Presets — good feature
+
+Ye UI simulator ke liye actually bahut useful hai.
+
+Preset options:
+
+Demo Banking
+Student
+Salary Account
+High Balance
+Empty Account
+Busy Transaction History
+
+Example:
+
+Demo Banking
+
+Automatically:
+
+Checking       ₹100
+Savings        ₹1,000
+Credit Score   850
+Transactions   sample data
+
+Isse app instantly populate ho jayega.
+
+24. Settings — Account & Privacy
+
+Screenshot ke lower settings page me:
+
+ACCOUNT & PRIVACY
+Biometrics
+fingerprint icon
+
+
+Biometrics                         [toggle]
+Change PIN
+🔒 Change PIN                         >
+Delete Account
+
+Red:
+
+🗑 Delete Account
+
+
+   Permanently delete all data        >
+
+Delete Account tap:
+
+Are you sure?
+
+
+This will permanently delete
+all local simulator data.
+
+
+Cancel
+Delete
+
+Actual banking account delete nahi hoga because app local simulator hai.
+
+25. Legal & Support
+
+Section:
+
+LEGAL & SUPPORT
+
+Rows:
+
+🎧 Help & Support                  >
+
+
+?   FAQ                            >
+
+
+📄 Terms of Service               >
+
+
+ⓘ   Privacy Policy                >
+
+Each can open a simple static screen.
+
+26. Main navigation flow
+
+Exact app flow approximately:
+
+                 SPLASH
+                    │
+                    ▼
+                  LOGIN
+                    │
+             Enter 4 digit PIN
+                    │
+                    ▼
+                  HOME
+                    │
+       ┌────────────┼────────────┐
+       │            │            │
+       ▼            ▼            ▼
+    HISTORY      STATEMENTS    SETTINGS
+       │            │            │
+       │            │            ├── Theme
+       │            │            ├── Language
+       │            │            ├── Currency
+       │            │            ├── Change PIN
+       │            │            └── Privacy
+       │            │
+       │            ├── Receipts
+       │            ├── Documents
+       │            └── My Files
+       │
+       └── Search / Filter
+
+
+                    HOME
+                      │
+                      ▼
+                   PROFILE
+27. UI-only ka matlab kya hoga?
+
+Hum real bank functionality nahi banayenge.
+
+No:
+
+❌ Real bank API
+❌ Real money transfer
+❌ Real UPI
+❌ Real account
+❌ Real authentication server
+❌ Real credit score
+❌ Real bank statement
+❌ Real financial transaction
+
+Instead:
+
+✅ Local dummy accounts
+✅ Local transactions
+✅ Fake PIN
+✅ Fake balance
+✅ Fake credit score
+✅ Fake receipts
+✅ UI navigation
+✅ Search
+✅ Filters
+✅ Theme switching
+✅ Currency switching
+✅ Scenario presets
+28. Recommended technology
+
+Tumhare case me:
+
+Flutter
+Frontend
+    ↓
+Flutter
+    ↓
+Dart
+    ↓
+Local dummy data
+    ↓
+GitHub
+    ↓
+GitHub Actions
+    ↓
+flutter build apk
+    ↓
+APK
+
+Android Studio required nahi.
+
+29. Project structure
+
+Main project ko is tarah rakhunga:
+
+bank-simulator/
+│
+├── .github/
+│   └── workflows/
+│       └── build-apk.yml
+│
+├── assets/
+│   ├── images/
+│   ├── icons/
+│   └── logo/
+│
+├── lib/
+│   │
+│   ├── main.dart
+│   │
+│   ├── app.dart
+│   │
+│   ├── theme/
+│   │   ├── app_colors.dart
+│   │   ├── app_theme.dart
+│   │   └── app_text_styles.dart
+│   │
+│   ├── models/
+│   │   ├── account.dart
+│   │   ├── transaction.dart
+│   │   └── document.dart
+│   │
+│   ├── data/
+│   │   ├── accounts.dart
+│   │   ├── transactions.dart
+│   │   └── documents.dart
+│   │
+│   ├── screens/
+│   │   ├── splash/
+│   │   │   └── splash_screen.dart
+│   │   │
+│   │   ├── auth/
+│   │   │   ├── login_screen.dart
+│   │   │   └── reset_pin_screen.dart
+│   │   │
+│   │   ├── home/
+│   │   │   └── home_screen.dart
+│   │   │
+│   │   ├── history/
+│   │   │   └── history_screen.dart
+│   │   │
+│   │   ├── statements/
+│   │   │   ├── statements_screen.dart
+│   │   │   ├── receipt_screen.dart
+│   │   │   └── document_screen.dart
+│   │   │
+│   │   ├── settings/
+│   │   │   ├── settings_screen.dart
+│   │   │   ├── theme_screen.dart
+│   │   │   ├── language_screen.dart
+│   │   │   ├── currency_screen.dart
+│   │   │   ├── change_pin_screen.dart
+│   │   │   └── privacy_screen.dart
+│   │   │
+│   │   └── profile/
+│   │       └── profile_screen.dart
+│   │
+│   ├── widgets/
+│   │   ├── app_logo.dart
+│   │   ├── bottom_nav.dart
+│   │   ├── account_card.dart
+│   │   ├── action_card.dart
+│   │   ├── transaction_card.dart
+│   │   ├── settings_tile.dart
+│   │   ├── section_header.dart
+│   │   ├── filter_chip.dart
+│   │   └── credit_score_gauge.dart
+│   │
+│   └── services/
+│       └── local_storage.dart
+│
+├── pubspec.yaml
+└── README.md
+
+This structure future-proof rahega.
+
+30. Local storage
+
+UI-only app hone ke baad bhi kuch settings remember honi chahiye.
+
+Use:
+
+shared_preferences
+
+for simple values.
+
+Store:
+
+isLoggedIn
+pin
+selectedTheme
+selectedCurrency
+selectedLanguage
+biometricEnabled
+selectedScenario
+
+Example:
+
+App close
+    ↓
+Open again
+    ↓
+PIN/login state remembered
+31. Responsive design
+
+Tumhare screenshots:
+
+691 × 1536
+
+approximately portrait Android screenshot.
+
+But app ko sirf isi resolution ke liye hard-code mat karna.
+
+Use:
+
+MediaQuery
+LayoutBuilder
+Expanded
+Flexible
+SingleChildScrollView
+GridView
+ListView
+
+so different Android phones par bhi UI properly render ho.
+
+32. Important UI components
+
+Sabse pehle reusable components banayenge.
+
+AccountCard
+Account name
+Masked account number
+Balance
+Available Balance
+TransactionCard
+transaction icon
+type
+merchant
+reference
+time
+amount
+status
+SettingsTile
+icon
+title
+subtitle
+arrow/toggle
+ActionCard
+icon
+title
+BottomNav
+Home
+History
+Statements
+Settings
+Profile
+
+Isse har screen ka code clean rahega.
+
+33. Exact dummy data
+
+Screenshot ke according initial data:
+
+User
+Display Name: Manthan
+Member Since: 2024
+Accounts
+Basic Checking
+****1234
+₹100.00
+
+
+Savings Account
+****5678
+₹1,000.00
+Credit Score
+850
+EXCELLENT
+Transactions
+August 13, 2026
+
+
+Starbucks
+STARBUCKS #3847
+-₹5.47
+Yesterday, 11:35 PM
+Completed
+
+
+Sweetgreen
+SWEETGREEN #1042
+-₹13.85
+Yesterday, 5:08 PM
+Completed
+
+
+
+
+August 12, 2026
+
+
+Direct Deposit - Payroll
+GUSTO PAYROLL
++₹987.54
+Wed, 7:53 PM
+Completed
+
+
+Kroger Groceries
+KROGER #412
+-₹63.18
+Wed, 11:31 AM
+Completed
+34. Settings interactions
+
+UI-only hone ke bawajood interactions real-feeling hone chahiye.
+
+Theme
+
+Tap:
+
+Theme
+ ↓
+Color Families
+ ↓
+Navy
+Green
+Purple
+Orange
+
+Theme select karte hi app ka primary color change.
+
+Currency
+INR ₹
+USD $
+EUR €
+GBP £
+
+Select:
+
+₹1,000
+
+becomes:
+
+$1,000
+
+Simulation only — actual currency conversion nahi.
+
+Language
+
+Initially:
+
+English
+
+Can have:
+
+English
+Hindi
+
+But Hindi translation properly implement karna optional phase hai.
+
+35. History interactions
+
+Search icon:
+
+🔍
+
+Tap → search field.
+
+Example:
+
+Starbucks
+
+Only Starbucks transaction.
+
+Filter:
+
+All
+Deposits
+Withdrawals
+Payments
+
+Tap:
+
+Deposits
+
+Only:
+
+Direct Deposit - Payroll
+
+show.
+
+36. Statements interactions
+
+Receipt category tap:
+
+ATM Receipt
+
+→ list of fake ATM receipts.
+
+Tap receipt:
+
+Receipt Detail
+
+with:
+
+Merchant
+Date
+Time
+Amount
+Payment method
+Transaction ID
+Status
+
+and:
+
+Generate
+
+button.
+
+Again, no real banking data.
+
+37. Login simulation
+
+For example initial PIN:
+
+1234
+
+User enters:
+
+1234
+
+then:
+
+Login
+ ↓
+Home
+
+Wrong PIN:
+
+Incorrect PIN
+
+No backend.
+
+For public GitHub README clearly mention:
+
+This application is a UI-only banking simulator and does not perform real financial transactions.
+
+38. GitHub build — Android Studio ki zarurat nahi
+
+Ye tumhare liye important part hai.
+
+GitHub repository me:
+
+.github/workflows/build-apk.yml
+
+rakhenge.
+
+Workflow:
+
+GitHub
+   ↓
+Push code
+   ↓
+GitHub Actions starts
+   ↓
+Ubuntu runner
+   ↓
+Install Flutter
+   ↓
+Install Android SDK
+   ↓
+flutter pub get
+   ↓
+flutter build apk --release
+   ↓
+APK artifact
+
+Tumhare PC me:
+
+❌ Android Studio
+
+ki zarurat nahi.
+
+39. GitHub Actions ka final output
+
+Build complete hone ke baad:
+
+Actions
+  ↓
+Build APK
+  ↓
+Artifacts
+  ↓
+bank-simulator-apk
+  ↓
+app-release.apk
+
+APK download karke Android phone me install kar sakte ho.
+
+40. Development workflow tumhare liye
+
+Because Android Studio nahi hai:
+
+Option A — GitHub Codespaces
+GitHub Repository
+       ↓
+Codespaces
+       ↓
+Flutter code
+       ↓
+Commit
+       ↓
+GitHub Actions
+       ↓
+APK
+Option B — VS Code
+
+Agar tumhare system me VS Code hai:
+
+VS Code
++
+Flutter SDK
++
+Dart SDK
+
+enough hai.
+
+Android Studio mandatory nahi.
+
+41. Development phases
+
+Main ise ek saath huge project nahi banaunga.
+
+Phase 1 — Foundation
+Flutter project
+Theme
+Colors
+Typography
+Logo
+Routing
+Phase 2 — Authentication
+Splash
+Login
+PIN
+Reset PIN
+Phase 3 — Main navigation
+Bottom Navigation
+Home
+History
+Statements
+Settings
+Profile
+Phase 4 — Home
+Quick Actions
+Accounts
+Featured Services
+Credit Score
+Phase 5 — History
+Transaction model
+Transaction list
+Date grouping
+Search
+Filters
+Phase 6 — Statements
+Tabs
+Quick Receipt
+Document grid
+Receipt details
+Phase 7 — Settings
+Theme
+Currency
+Language
+Presets
+Biometrics
+PIN
+Privacy
+Phase 8 — Polish
+Animations
+Shadows
+Spacing
+Icons
+Responsive layout
+Loading states
+Empty states
+Phase 9 — APK
+GitHub Actions
+       ↓
+Release APK
+42. Screen count
+
+Initial version me approximately:
+
+Screen	Purpose
+Splash	App startup
+Login	PIN authentication
+Reset PIN	Fake PIN reset
+Home	Dashboard
+History	Transactions
+Statements	Documents/receipts
+Quick Receipt	Receipt generation
+Receipt Detail	Receipt preview
+Settings	Settings dashboard
+Theme	Theme selection
+Language	Language selection
+Currency	Currency selection
+Scenario Presets	Dummy data presets
+Change PIN	Change simulated PIN
+Help	Support
+FAQ	FAQ
+Terms	Terms
+Privacy	Privacy
+Profile	User information
+
+~19 screens, but many are simple static/settings screens.
+
+43. Most important implementation principle
+
+Screenshot ko literally har screen me duplicate code se reproduce nahi karna.
+
+Instead:
+
+Design System
+     ↓
+Reusable Components
+     ↓
+Screens
+     ↓
+Navigation
+
+For example:
+
+SettingsTile
+
+ek baar banega.
+
+Then:
+
+Theme
+Language
+Currency
+FAQ
+Privacy
+
+sab wahi component use karenge.
+
+Similarly:
+
+AccountCard
+
+ek baar.
+
+Then:
+
+Checking
+Savings
+
+same widget.
+
+Isse UI consistency screenshot jaisi rahegi.
+
+44. One important branding point
+
+Screenshots me Navi branding/logo clearly visible hai. Agar ye tumhara personal simulator/project hai, GitHub par public release karte waqt main recommend karunga:
+
+UI/layout inspiration → same visual structure
+App identity → apna naam/logo
+
+For example:
+
+NexaBank
+FinSim
+BankUI
+NaviSim
+
+Taaki project ko actual Navi banking application samajhne ka confusion na ho.
+
+Agar tumhara purpose specifically UI recreation / learning project hai, README me clearly:
+
+Educational UI simulator.
+Not affiliated with or endorsed by Navi.
+No real banking functionality.
+
+likhna better rahega.
+
+Final architecture
+                    BANKING UI SIMULATOR
+                             │
+                 ┌───────────┴───────────┐
+                 │                       │
+             Flutter UI              Local Data
+                 │                       │
+        ┌────────┼────────┐              │
+        │        │        │              │
+      Home    History Statements       Settings
+        │        │        │              │
+        └────────┴────────┴──────────────┘
+                         │
+                  Profile / Auth
+                         │
+                  Shared Preferences
+                         │
+                    Git Repository
+                         │
+                   GitHub Actions
+                         │
+                  Flutter APK Build
+                         │
+                    app-release.apk
+
+Mera recommendation: pehle screenshot ke Splash → Login → Home → Bottom Navigation ko pixel-close banate hain, phir baaki screens. Is approach se project manageable rahega aur har stage par APK build karke phone me test kar sakte ho.

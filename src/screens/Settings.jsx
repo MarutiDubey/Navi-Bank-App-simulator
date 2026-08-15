@@ -236,7 +236,7 @@ const Settings = () => {
               </div>
             ) : (
               <>
-                <input type="password" value={newPinVal} onChange={e => setNewPinVal(e.target.value.replace(/\D/g, '').slice(0, 4))}
+                <input type="password" inputMode="numeric" pattern="[0-9]*" value={newPinVal} onChange={e => setNewPinVal(e.target.value.replace(/\D/g, '').slice(0, 4))}
                   placeholder="Enter new 4-digit PIN"
                   style={{ width: '100%', border: '1.5px solid var(--color-border)', borderRadius: '12px', padding: '14px', fontSize: '22px', letterSpacing: '10px', textAlign: 'center', outline: 'none', marginBottom: '16px', color: 'var(--color-text-dark)' }} />
                 <button onClick={handleChangePinSubmit} disabled={newPinVal.length < 4} style={{ width: '100%', padding: '14px', borderRadius: '20px', border: 'none', backgroundColor: newPinVal.length === 4 ? 'var(--color-primary)' : '#A0A4C9', color: 'white', fontSize: '16px', fontWeight: '700', marginBottom: '10px' }}>

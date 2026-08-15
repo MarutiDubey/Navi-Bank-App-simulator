@@ -97,10 +97,6 @@ const AccountCard = ({ account, currency, balanceVisible, onToggleBalance }) => 
       </div>
     </div>
 
-    {/* Hint text */}
-    {!balanceVisible && (
-      <p style={{ fontSize: '11px', opacity: 0.6, marginBottom: '4px' }}>Tap 👁 to reveal balance</p>
-    )}
     <div style={{ fontSize: '13px', opacity: 0.75 }}>Available Balance</div>
   </div>
 );

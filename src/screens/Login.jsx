@@ -64,35 +64,43 @@ const Login = () => {
           <>
             <div style={{ width: '100%', maxWidth: '300px', marginBottom: '16px' }}>
               <label style={{ fontSize: '13px', color: 'var(--color-text-gray)', marginBottom: '6px', display: 'block' }}>New PIN</label>
-              <input
-                type="password"
-                value={newPin}
-                onChange={(e) => setNewPin(e.target.value.replace(/\D/g, '').slice(0, 4))}
-                placeholder="••••"
-                style={{
-                  width: '100%', border: '1.5px solid var(--color-border)',
-                  borderRadius: '12px', padding: '14px 16px',
-                  fontSize: '22px', outline: 'none', letterSpacing: '8px',
-                  backgroundColor: 'var(--color-card-light)', fontFamily: 'Poppins, sans-serif',
-                  color: 'var(--color-text-dark)'
-                }}
-              />
+              <div style={{ position: 'relative', width: '100%' }}>
+                <input
+                  type="password"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  value={newPin}
+                  onChange={(e) => setNewPin(e.target.value.replace(/\D/g, '').slice(0, 4))}
+                  placeholder="••••"
+                  style={{
+                    width: '100%', border: '1.5px solid var(--color-border)',
+                    borderRadius: '12px', padding: '14px 16px',
+                    fontSize: '22px', outline: 'none', letterSpacing: '8px',
+                    backgroundColor: 'var(--color-card-light)', fontFamily: 'Poppins, sans-serif',
+                    color: 'var(--color-text-dark)', boxSizing: 'border-box',
+                  }}
+                />
+              </div>
             </div>
             <div style={{ width: '100%', maxWidth: '300px', marginBottom: '32px' }}>
               <label style={{ fontSize: '13px', color: 'var(--color-text-gray)', marginBottom: '6px', display: 'block' }}>Confirm PIN</label>
-              <input
-                type="password"
-                value={confirmPin}
-                onChange={(e) => setConfirmPin(e.target.value.replace(/\D/g, '').slice(0, 4))}
-                placeholder="••••"
-                style={{
-                  width: '100%', border: '1.5px solid var(--color-border)',
-                  borderRadius: '12px', padding: '14px 16px',
-                  fontSize: '22px', outline: 'none', letterSpacing: '8px',
-                  backgroundColor: 'var(--color-card-light)', fontFamily: 'Poppins, sans-serif',
-                  color: 'var(--color-text-dark)'
-                }}
-              />
+              <div style={{ position: 'relative', width: '100%' }}>
+                <input
+                  type="password"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  value={confirmPin}
+                  onChange={(e) => setConfirmPin(e.target.value.replace(/\D/g, '').slice(0, 4))}
+                  placeholder="••••"
+                  style={{
+                    width: '100%', border: '1.5px solid var(--color-border)',
+                    borderRadius: '12px', padding: '14px 16px',
+                    fontSize: '22px', outline: 'none', letterSpacing: '8px',
+                    backgroundColor: 'var(--color-card-light)', fontFamily: 'Poppins, sans-serif',
+                    color: 'var(--color-text-dark)', boxSizing: 'border-box',
+                  }}
+                />
+              </div>
             </div>
 
             <button
@@ -143,9 +151,11 @@ const Login = () => {
           backgroundColor: 'var(--color-card-light)', gap: '12px',
           transition: 'border-color 0.2s'
         }}>
-          <Lock size={20} color={error ? 'var(--color-red)' : 'var(--color-text-gray)'} />
+          <Lock size={20} color={error ? 'var(--color-red)' : 'var(--color-text-gray)'} style={{ flexShrink: 0 }} />
           <input
             type={showPin ? 'text' : 'password'}
+            inputMode="numeric"
+            pattern="[0-9]*"
             value={pin}
             onChange={(e) => {
               setPinInput(e.target.value.replace(/\D/g, '').slice(0, 4));
@@ -158,10 +168,14 @@ const Login = () => {
               fontSize: '28px', outline: 'none',
               letterSpacing: showPin ? '6px' : '10px',
               color: error ? 'var(--color-red)' : 'var(--color-text-dark)',
-              fontWeight: '700', fontFamily: 'Poppins, sans-serif'
+              fontWeight: '700', fontFamily: 'Poppins, sans-serif',
+              minWidth: 0,
             }}
           />
-          <div onClick={() => setShowPin(!showPin)} style={{ cursor: 'pointer', padding: '4px', lineHeight: 0 }}>
+          <div
+            onClick={() => setShowPin(!showPin)}
+            style={{ cursor: 'pointer', padding: '4px', lineHeight: 0, flexShrink: 0 }}
+          >
             {showPin ? <Eye size={20} color="var(--color-text-gray)" /> : <EyeOff size={20} color="var(--color-text-gray)" />}
           </div>
         </div>
@@ -205,9 +219,6 @@ const Login = () => {
         Reset PIN
       </span>
 
-      <p style={{ marginTop: '40px', color: 'var(--color-text-gray)', fontSize: '12px', textAlign: 'center' }}>
-        Default PIN: <strong>1234</strong>
-      </p>
     </div>
   );
 };

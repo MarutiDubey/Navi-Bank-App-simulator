@@ -1,10 +1,12 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [pin, setPin] = useState('1234'); // Default PIN for simulation
+  const [pin, setPin] = useState(() => {
+    try { return localStorage.getItem('navi_pin') || '1234'; } catch { return '1234'; }
+  });
   const [lastGeneratedReceipt, setLastGeneratedReceipt] = useState(null);
 
   const login = (enteredPin) => {
@@ -21,6 +23,7 @@ export const AuthProvider = ({ children }) => {
 
   const resetPin = (newPin) => {
     setPin(newPin);
+    try { localStorage.setItem('navi_pin', newPin); } catch {}
   };
 
   const generateReceipt = () => {

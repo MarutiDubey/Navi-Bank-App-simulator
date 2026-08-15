@@ -4,7 +4,7 @@ export const accounts = [
     bankName: "SBI Bank",
     name: "Savings Account",
     accountNumber: "4354",
-    balance: 100.00,
+    balance: 85000.00,
     type: "Savings"
   },
   {
@@ -12,7 +12,7 @@ export const accounts = [
     bankName: "SBI Bank",
     name: "Basic Checking",
     accountNumber: "1234",
-    balance: 1000.00,
+    balance: 23500.00,
     type: "Checking"
   }
 ];
